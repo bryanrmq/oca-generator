@@ -170,7 +170,7 @@ describe('Structure copy, cut and paste', () => {
     await user.click(row('a'));
     const before = project();
     expect(paste('hello')).toBe(false);
-    expect(paste('{"kind":"oca-generator/nodes","version":1,"items":[{"parent":0,"node":{}}]}')).toBe(false);
+    expect(paste(JSON.stringify({ kind: CLIPBOARD_KIND, version: 1, items: [{ parent: 0, node: {} }] }))).toBe(false);
     expect(project()).toBe(before);
     expect(useStore.getState().past).toHaveLength(0);
   });

@@ -62,7 +62,7 @@ describe('project files', () => {
     const project = fullProject();
     const content = JSON.parse(serializeProjectFile(project));
     expect(Object.keys(content)).toEqual(['format', 'version', 'project']);
-    expect(content.format).toBe('oca-generator-project');
+    expect(content.format).toBe('credential-toolkit-project');
     expect(content.format).toBe(PROJECT_FILE_FORMAT);
     expect(content.version).toBe(1);
     expect(content.version).toBe(PROJECT_FILE_VERSION);
@@ -88,22 +88,22 @@ describe('project files', () => {
 
   it('names the file after the credential name in the first language', () => {
     const project = fullProject();
-    expect(projectFileName(project)).toBe('hundebewilligung.oca-project.json');
+    expect(projectFileName(project)).toBe('hundebewilligung.credential-project.json');
     project.meta['de-CH'].name = '  Führerausweis: Kat. B / C1 ';
-    expect(projectFileName(project)).toBe('fuhrerausweis-kat-b-c1.oca-project.json');
+    expect(projectFileName(project)).toBe('fuhrerausweis-kat-b-c1.credential-project.json');
     project.meta['de-CH'].name = 'Élève – Carte d’étudiant 2026';
-    expect(projectFileName(project)).toBe('eleve-carte-d-etudiant-2026.oca-project.json');
+    expect(projectFileName(project)).toBe('eleve-carte-d-etudiant-2026.credential-project.json');
     project.meta['de-CH'].name = 'a'.repeat(100);
-    expect(projectFileName(project)).toBe(`${'a'.repeat(80)}.oca-project.json`);
+    expect(projectFileName(project)).toBe(`${'a'.repeat(80)}.credential-project.json`);
   });
 
   it('names a file without a credential name untitled-credential', () => {
     const project = fullProject();
     project.meta['de-CH'].name = '';
-    expect(projectFileName(project)).toBe('untitled-credential.oca-project.json');
+    expect(projectFileName(project)).toBe('untitled-credential.credential-project.json');
     project.meta['de-CH'].name = '—?!';
-    expect(projectFileName(project)).toBe('untitled-credential.oca-project.json');
-    expect(projectFileName(emptyProject([]))).toBe('untitled-credential.oca-project.json');
+    expect(projectFileName(project)).toBe('untitled-credential.credential-project.json');
+    expect(projectFileName(emptyProject([]))).toBe('untitled-credential.credential-project.json');
   });
 
   it('refuses what is not a project file', () => {

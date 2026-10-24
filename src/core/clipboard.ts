@@ -21,13 +21,13 @@ import { listExpressions, resolveEditorPath, retargetTemplate } from './template
 /*
  * Nodes on the system clipboard, as JSON text:
  *
- *   { "kind": "oca-generator/nodes", "version": 1, "items": [{ "parent": 0, "node": { …a Node… } }, …] }
+ *   { "kind": "credential-toolkit/nodes", "version": 1, "items": [{ "parent": 0, "node": { …a Node… } }, …] }
  *
  * `items` are the copied nodes in tree order, each with its whole subtree. Items with the same `parent`
  * number were siblings in the project they came from, so references between them can follow on paste.
  */
 
-export const CLIPBOARD_KIND = 'oca-generator/nodes';
+export const CLIPBOARD_KIND = 'credential-toolkit/nodes';
 export const CLIPBOARD_VERSION = 1;
 
 export interface ClipboardItem {

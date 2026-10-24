@@ -47,8 +47,8 @@ describe('Output pane', () => {
   });
 
   it('neither reads nor writes the stored preview height or halves', async () => {
-    localStorage.setItem('oca-generator:preview-height', '500');
-    localStorage.setItem('oca-generator:output-halves', JSON.stringify({ preview: true, bundle: false }));
+    localStorage.setItem('credential-toolkit:preview-height', '500');
+    localStorage.setItem('credential-toolkit:output-halves', JSON.stringify({ preview: true, bundle: false }));
     const user = userEvent.setup();
     render(<Workspace />);
     // A bundle saved as collapsed shows all the same.
@@ -56,8 +56,8 @@ describe('Output pane', () => {
     expect(screen.getByRole('region', { name: 'Output' }).querySelector('.output')).not.toHaveAttribute('style');
     await user.click(output().getByRole('tab', { name: 'VCT snippet' }));
     await user.click(output().getByRole('tab', { name: 'Bundle' }));
-    expect(localStorage.getItem('oca-generator:preview-height')).toBe('500');
-    expect(localStorage.getItem('oca-generator:output-halves')).toBe(JSON.stringify({ preview: true, bundle: false }));
+    expect(localStorage.getItem('credential-toolkit:preview-height')).toBe('500');
+    expect(localStorage.getItem('credential-toolkit:output-halves')).toBe(JSON.stringify({ preview: true, bundle: false }));
   });
 
   it('hides the pane with the button in its header on a wide window', async () => {

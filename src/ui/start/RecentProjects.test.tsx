@@ -92,7 +92,7 @@ describe('RecentProjects', () => {
     await store('a', 'Hundebewilligung', 1);
     const opened = emptyProject(['de-CH']);
     opened.meta['de-CH'].name = 'Fischereipatent';
-    const file = new File([serializeProjectFile(opened)], 'fischereipatent.oca-project.json', { type: 'application/json' });
+    const file = new File([serializeProjectFile(opened)], 'fischereipatent.credential-project.json', { type: 'application/json' });
     vi.spyOn(HTMLInputElement.prototype, 'click').mockImplementation(function (this: HTMLInputElement) {
       Object.defineProperty(this, 'files', { value: [file] });
       this.dispatchEvent(new Event('change'));
@@ -114,7 +114,7 @@ describe('RecentProjects', () => {
     await user.click(screen.getByRole('menuitem', { name: 'Download project file' }));
     await waitFor(() => expect(downloadText).toHaveBeenCalledOnce());
     const record = await getDraft('a');
-    expect(downloadText).toHaveBeenCalledWith('hundebewilligung.oca-project.json', serializeProjectFile(record!.project));
+    expect(downloadText).toHaveBeenCalledWith('hundebewilligung.credential-project.json', serializeProjectFile(record!.project));
   });
 
   describe('rename', () => {

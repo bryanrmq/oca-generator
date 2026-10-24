@@ -1,4 +1,4 @@
-export const TOUR_SEEN_KEY = 'oca-generator:tour-seen';
+export const TOUR_SEEN_KEY = 'credential-toolkit:tour-seen';
 
 /** Whether this browser has finished or skipped the workspace tour. Unreadable storage counts as not seen. */
 export function loadTourSeen(): boolean {

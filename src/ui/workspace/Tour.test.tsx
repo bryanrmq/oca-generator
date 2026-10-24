@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { emptyProject } from '../../core/model';
 import { useStore } from '../../state/store';
+import { OUTPUT_OPEN_KEY } from '../lib/paneLayout';
 import { TOUR_SEEN_KEY, loadTourSeen } from '../lib/tour';
 import { Workspace } from './Workspace';
 
@@ -194,14 +195,14 @@ describe('Tour', () => {
   });
 
   it('shows the Output pane for its step when it was hidden', async () => {
-    localStorage.setItem('oca-generator:output-open', 'false');
+    localStorage.setItem(OUTPUT_OPEN_KEY, 'false');
     const user = userEvent.setup();
     render(<Workspace />);
     expect(screen.queryByRole('region', { name: 'Output' })).not.toBeInTheDocument();
     await next(user, 3);
     expect(heading()).toBe('Output');
     expect(screen.getByRole('region', { name: 'Output' })).toBeInTheDocument();
-    expect(localStorage.getItem('oca-generator:output-open')).toBe('true');
+    expect(localStorage.getItem(OUTPUT_OPEN_KEY)).toBe('true');
 
     // Hidden again during the tour (by the shortcut, say), coming back to the step shows it again.
     act(() => useStore.getState().setOutputOpen(false));

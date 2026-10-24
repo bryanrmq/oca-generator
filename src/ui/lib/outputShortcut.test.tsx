@@ -5,6 +5,7 @@ import { emptyProject } from '../../core/model';
 import { useStore } from '../../state/store';
 import { Workspace } from '../workspace/Workspace';
 import { command, matchesKeys } from './commands';
+import { OUTPUT_OPEN_KEY } from './paneLayout';
 import { TOUR_SEEN_KEY } from './tour';
 
 const key = (init: KeyboardEventInit) => new KeyboardEvent('keydown', { code: 'KeyB', key: 'b', ...init });
@@ -41,7 +42,7 @@ describe('output shortcut', () => {
     press();
     expect(output()).not.toBeInTheDocument();
     expect(field).toHaveFocus();
-    expect(localStorage.getItem('oca-generator:output-open')).toBe('false');
+    expect(localStorage.getItem(OUTPUT_OPEN_KEY)).toBe('false');
     press({ ctrlKey: true, altKey: true });
     expect(output()).toBeInTheDocument();
   });

@@ -4,15 +4,15 @@ import type { Project } from './model.ts';
 
 /**
  * Project files: a whole project, sample credential and I14Y links included, saved outside the browser as
- * `<credential-name>.oca-project.json`. The exported bundle drops those editor-only parts; a project file
+ * `<credential-name>.credential-project.json`. The exported bundle drops those editor-only parts; a project file
  * keeps everything. The file is `{ format, version, project, baseline? }`; `version` counts changes to that shape.
  * `baseline`, the draft's published bundle (`core/baseline.ts`), is optional: files saved before it still open.
  */
 
-export const PROJECT_FILE_FORMAT = 'oca-generator-project';
+export const PROJECT_FILE_FORMAT = 'credential-toolkit-project';
 /** The version this app writes, and the newest it opens. */
 export const PROJECT_FILE_VERSION = 1;
-export const PROJECT_FILE_EXTENSION = '.oca-project.json';
+export const PROJECT_FILE_EXTENSION = '.credential-project.json';
 /** What a file picker offers: project files, and any JSON file in case the name changed. */
 export const PROJECT_FILE_ACCEPT = `${PROJECT_FILE_EXTENSION},.json,application/json`;
 

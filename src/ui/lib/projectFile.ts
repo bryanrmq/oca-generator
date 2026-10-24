@@ -12,7 +12,7 @@ import { downloadText } from './download';
  * project file" is `downloadDraftProjectFile`.
  */
 
-/** Saves `project` as `<credential-name>.oca-project.json`, with its published baseline when it has one. */
+/** Saves `project` as `<credential-name>.credential-project.json`, with its published baseline when it has one. */
 export function downloadProjectFile(project: Project, baseline?: Baseline | null): void {
   downloadText(projectFileName(project), serializeProjectFile(project, baseline));
 }

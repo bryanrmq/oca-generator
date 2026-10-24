@@ -2,6 +2,7 @@
 import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { CLIPBOARD_KIND } from '../../core/clipboard';
 import { type Node, emptyProject, newAttribute, newGroupLink, walkNodes } from '../../core/model';
 import { useStore } from '../../state/store';
 import { TOUR_SEEN_KEY } from '../lib/tour';
@@ -217,7 +218,7 @@ describe('Structure right-click menus', () => {
     expect(menuContents()).not.toContain('Paste [Ctrl+V]');
     await user.click(item('Copy'));
     expect(keys()).toEqual(['a', 'person', 'd', 'items']);
-    expect(await navigator.clipboard.readText()).toContain('"oca-generator/nodes"');
+    expect(await navigator.clipboard.readText()).toContain(`"${CLIPBOARD_KIND}"`);
 
     await rightClick(user, row('d'));
     expect(menuContents().slice(-6)).toEqual(['—', 'Cut [Ctrl+X]', 'Copy [Ctrl+C]', 'Paste [Ctrl+V]', '—', 'Delete [Del]']);

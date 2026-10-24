@@ -25,9 +25,9 @@ import { DRAFTS_STORE, SUMMARIES_STORE, openDatabase, transact } from './idb';
 import { useStore } from './store';
 
 /** Where the single draft lived before drafts moved to IndexedDB. Read once to migrate it, then removed. */
-export const DRAFT_KEY = 'oca-generator:draft';
+export const DRAFT_KEY = 'credential-toolkit:draft';
 /** The id of the draft last open in the workspace. */
-export const OPEN_DRAFT_KEY = 'oca-generator:open-draft';
+export const OPEN_DRAFT_KEY = 'credential-toolkit:open-draft';
 const AUTOSAVE_DELAY_MS = 500;
 
 /** One stored draft. */

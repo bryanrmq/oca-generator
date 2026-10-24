@@ -5,6 +5,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { emptyGroup, emptyProject, ensureIssuer, newAttribute, newGroupLink } from '../../core/model';
 import { oneNode } from '../../state/selection';
 import { useStore } from '../../state/store';
+import { ISSUES_HEIGHT_KEY, ISSUES_OPEN_KEY } from '../lib/paneLayout';
 import { TOUR_SEEN_KEY } from '../lib/tour';
 import { Workspace } from './Workspace';
 
@@ -89,7 +90,7 @@ describe('IssuesPanel', () => {
     const user = userEvent.setup();
     const { unmount } = render(<Workspace />);
     await user.click(within(panel()).getByRole('button', { name: 'Collapse issues' }));
-    expect(localStorage.getItem('oca-generator:issues-open')).toBe('false');
+    expect(localStorage.getItem(ISSUES_OPEN_KEY)).toBe('false');
 
     unmount();
     render(<Workspace />);
@@ -125,7 +126,7 @@ describe('IssuesPanel', () => {
     fireEvent.pointerMove(handle, { clientY: 500, pointerId: 1 });
     fireEvent.pointerUp(handle, { clientY: 500, pointerId: 1 });
     expect(handle).toHaveAttribute('aria-valuenow', '300');
-    expect(localStorage.getItem('oca-generator:issues-height')).toBe('300');
+    expect(localStorage.getItem(ISSUES_HEIGHT_KEY)).toBe('300');
 
     await user.dblClick(handle);
     expect(handle).toHaveAttribute('aria-valuenow', '200');
@@ -214,7 +215,7 @@ describe('top-bar issues button', () => {
     await user.click(topBarButton());
     expect(within(panel()).getByRole('button', { name: 'Collapse issues' })).toHaveAttribute('aria-expanded', 'true');
     expect(within(panel()).getByRole('list')).toHaveFocus();
-    expect(localStorage.getItem('oca-generator:issues-open')).toBe('true');
+    expect(localStorage.getItem(ISSUES_OPEN_KEY)).toBe('true');
   });
 });
 
@@ -261,7 +262,7 @@ describe('Issues tab on a narrow window', () => {
 
   it('shows the full list even when the docked panel was collapsed', async () => {
     narrowWindow();
-    localStorage.setItem('oca-generator:issues-open', 'false');
+    localStorage.setItem(ISSUES_OPEN_KEY, 'false');
     useStore.getState().load(brokenProject());
     const user = userEvent.setup();
     render(<Workspace />);

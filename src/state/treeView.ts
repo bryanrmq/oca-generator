@@ -102,7 +102,7 @@ export function selectionOnCollapse(project: Project, selection: Selection, grou
   return { kind: 'node', id, ids, anchor: inside.has(selection.anchor) ? groupId : selection.anchor };
 }
 
-export const COLLAPSED_KEY = 'oca-generator:collapsed-groups';
+export const COLLAPSED_KEY = 'credential-toolkit:collapsed-groups';
 /** How many projects' collapsed groups are remembered; the ones left untouched longest go first. */
 const REMEMBERED_PROJECTS = 20;
 

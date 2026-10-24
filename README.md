@@ -49,7 +49,7 @@ npm install @bryanrmq/oca-generator
 ```js
 import { exportProject, parseProjectFile } from '@bryanrmq/oca-generator';
 
-const file = parseProjectFile(text); // a *.oca-project.json saved by the app
+const file = parseProjectFile(text); // a *.credential-project.json saved by the app
 const result = file.ok && (await exportProject(file.project));
 // result.issues, and when there is no error: result.outputs.json, result.outputs.integrity, result.vct
 ```

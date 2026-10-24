@@ -36,7 +36,7 @@ export type {
 export { FALLBACK_IDENTIFIER_BASE, IDENTIFIER_PATTERN, defaultIdentifiers, isIssuerLogo, isIssuerUrl, issuerIdentifiers, issuerOf, issuerUrl } from './issuer.ts';
 export type { IssuerIdentifiers } from './issuer.ts';
 
-// Project files (`*.oca-project.json`), as the app saves and opens them.
+// Project files (`*.credential-project.json`), as the app saves and opens them.
 export {
   PROJECT_FILE_EXTENSION,
   PROJECT_FILE_FORMAT,

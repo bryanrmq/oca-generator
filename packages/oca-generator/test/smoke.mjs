@@ -13,7 +13,7 @@ for (const name of ['window', 'document', 'self', 'location', 'indexedDB', 'HTML
 
 const { exportProject, importBundle, parseProjectFile, serializeBundle } = await import('../dist/index.js');
 
-const file = process.argv[2] ?? new URL('./fixtures/sample.oca-project.json', import.meta.url);
+const file = process.argv[2] ?? new URL('./fixtures/sample.credential-project.json', import.meta.url);
 const parsed = parseProjectFile(await readFile(file, 'utf8'));
 if (!parsed.ok) throw new Error(`Not a project file: ${parsed.error}`);
 

@@ -29,7 +29,7 @@ function project(name: string): Project {
 }
 
 const baseline: Baseline = { json: '{"capture_bases":[]}', integrity: 'sha256-abc=', source: 'download', setAt: 5 };
-const projectFile = (content: string) => new File([content], 'project.oca-project.json', { type: 'application/json' });
+const projectFile = (content: string) => new File([content], 'project.credential-project.json', { type: 'application/json' });
 const ids = () => useDrafts.getState().drafts.map((draft) => draft.id);
 const toast = () => document.querySelector('.toast--error');
 
@@ -66,14 +66,14 @@ describe('saving a project file', () => {
     const open = project('Hundebewilligung');
     createDraft(open);
     saveProjectFile();
-    expect(downloadText).toHaveBeenCalledWith('hundebewilligung.oca-project.json', serializeProjectFile(open));
+    expect(downloadText).toHaveBeenCalledWith('hundebewilligung.credential-project.json', serializeProjectFile(open));
   });
 
   it('saves the open draft\'s baseline with it', () => {
     const open = project('Hundebewilligung');
     createDraft(open, undefined, { baseline });
     saveProjectFile();
-    expect(downloadText).toHaveBeenCalledWith('hundebewilligung.oca-project.json', serializeProjectFile(open, baseline));
+    expect(downloadText).toHaveBeenCalledWith('hundebewilligung.credential-project.json', serializeProjectFile(open, baseline));
   });
 
   it('does nothing without an open project', () => {
@@ -85,13 +85,13 @@ describe('saving a project file', () => {
     const stored = project('Lernfahrausweis');
     await restoreDraft({ id: 'saved', updatedAt: 1, project: stored });
     expect(await downloadDraftProjectFile('saved')).toBe(true);
-    expect(downloadText).toHaveBeenCalledWith('lernfahrausweis.oca-project.json', serializeProjectFile(stored));
+    expect(downloadText).toHaveBeenCalledWith('lernfahrausweis.credential-project.json', serializeProjectFile(stored));
     expect(await downloadDraftProjectFile('missing')).toBe(false);
     expect(downloadText).toHaveBeenCalledTimes(1);
 
     await restoreDraft({ id: 'published', updatedAt: 2, project: stored, baseline });
     await downloadDraftProjectFile('published');
-    expect(downloadText).toHaveBeenLastCalledWith('lernfahrausweis.oca-project.json', serializeProjectFile(stored, baseline));
+    expect(downloadText).toHaveBeenLastCalledWith('lernfahrausweis.credential-project.json', serializeProjectFile(stored, baseline));
   });
 });
 
@@ -164,7 +164,7 @@ describe('opening a project file', () => {
     const picked = choose(projectFile(serializeProjectFile(project('Lernfahrausweis'))));
     openProjectFile();
     expect(picked.input?.type).toBe('file');
-    expect(picked.input?.accept).toBe('.oca-project.json,.json,application/json');
+    expect(picked.input?.accept).toBe('.credential-project.json,.json,application/json');
     await waitFor(() => expect(useStore.getState().project?.meta['de-CH'].name).toBe('Lernfahrausweis'));
   });
 });
@@ -191,7 +191,7 @@ describe('in the app', () => {
     expect(separator.nextElementSibling).toBe(within(menu).getByRole('menuitem', { name: 'Save project file' }));
 
     await user.click(within(menu).getByRole('menuitem', { name: 'Save project file' }));
-    expect(downloadText).toHaveBeenCalledWith('hundebewilligung.oca-project.json', expect.stringContaining('"format": "oca-generator-project"'));
+    expect(downloadText).toHaveBeenCalledWith('hundebewilligung.credential-project.json', expect.stringContaining('"format": "credential-toolkit-project"'));
 
     const picked = choose(projectFile('nope'));
     await user.click(screen.getByRole('button', { name: 'More actions' }));
@@ -228,7 +228,7 @@ describe('in the app', () => {
     act(() => useStore.getState().setDraftSaveFailed(true));
     const banner = screen.getByText(/This browser is out of space/).closest<HTMLElement>('[role="status"]')!;
     await user.click(within(banner).getByRole('button', { name: 'Save project file' }));
-    expect(downloadText).toHaveBeenCalledWith('hundebewilligung.oca-project.json', serializeProjectFile(broken));
+    expect(downloadText).toHaveBeenCalledWith('hundebewilligung.credential-project.json', serializeProjectFile(broken));
   });
 
   it('shows the error toast on the start screen too', async () => {

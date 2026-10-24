@@ -38,4 +38,4 @@ jobs:
       - run: npm ci
       - run: npm run build:lib
       - run: node packages/oca-generator/test/smoke.mjs > /dev/null
-      - run: node packages/oca-generator/dist/cli.js build packages/oca-generator/test/fixtures/sample.oca-project.json -o /dev/null
+      - run: node packages/oca-generator/dist/cli.js build packages/oca-generator/test/fixtures/sample.credential-project.json -o /dev/null

@@ -51,7 +51,7 @@ export async function fetchConcept(id: string, signal?: AbortSignal): Promise<I1
   return parseConcept(await getJson(`${I14Y_API}/concepts/${encodeURIComponent(id)}?includeCodeListEntries=true`, signal));
 }
 
-export const CATALOGUE_CACHE_KEY = 'oca-generator:i14y-catalogue';
+export const CATALOGUE_CACHE_KEY = 'credential-toolkit:i14y-catalogue';
 /** I14Y's concept list changes slowly, and a picked concept is always fetched fresh, so a week-old list is fine. */
 export const CATALOGUE_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000;
 /** The whole public catalogue fits in one page today (646 concepts); later pages are fetched if it grows. */

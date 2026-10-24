@@ -1,6 +1,6 @@
 /** A thin promise wrapper over IndexedDB, with just what the drafts need. */
 
-const DB_NAME = 'oca-generator';
+const DB_NAME = 'credential-toolkit';
 const DB_VERSION = 1;
 
 /** Whole drafts, by id: `DraftRecord` in `persistence.ts`. */

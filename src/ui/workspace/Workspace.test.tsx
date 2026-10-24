@@ -5,6 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { emptyProject, newAttribute } from '../../core/model';
 import { useDrafts } from '../../state/persistence';
 import { useStore } from '../../state/store';
+import { OUTPUT_OPEN_KEY, PANE_LAYOUT_KEY } from '../lib/paneLayout';
 import { TOUR_SEEN_KEY } from '../lib/tour';
 import { Workspace } from './Workspace';
 
@@ -246,7 +247,7 @@ describe('Workspace', () => {
     fireEvent.pointerMove(structure, { clientX: 360, pointerId: 1 });
     fireEvent.pointerUp(structure, { clientX: 360, pointerId: 1 });
     expect(structure).toHaveAttribute('aria-valuenow', '360');
-    expect(JSON.parse(localStorage.getItem('oca-generator:pane-widths')!)).toEqual({ structure: 360, output: 420 });
+    expect(JSON.parse(localStorage.getItem(PANE_LAYOUT_KEY)!)).toEqual({ structure: 360, output: 420 });
 
     await user.dblClick(structure);
     expect(structure).toHaveAttribute('aria-valuenow', '300');
@@ -280,7 +281,7 @@ describe('Workspace', () => {
     const user = userEvent.setup();
     const { unmount } = render(<Workspace />);
     await user.click(topBar().getByRole('button', { name: 'Hide output' }));
-    expect(localStorage.getItem('oca-generator:output-open')).toBe('false');
+    expect(localStorage.getItem(OUTPUT_OPEN_KEY)).toBe('false');
 
     unmount();
     render(<Workspace />);
@@ -289,7 +290,7 @@ describe('Workspace', () => {
   });
 
   it('shows the hidden Output pane to go to a hosting issue', async () => {
-    localStorage.setItem('oca-generator:output-open', 'false');
+    localStorage.setItem(OUTPUT_OPEN_KEY, 'false');
     const user = userEvent.setup();
     render(<Workspace />);
     expect(screen.queryByRole('region', { name: 'Output' })).not.toBeInTheDocument();
@@ -298,7 +299,7 @@ describe('Workspace', () => {
     await user.click(within(issues).getByRole('button', { name: /Enter the URL where you will publish the bundle/ }));
     const output = screen.getByRole('region', { name: 'Output' });
     expect(within(output).getByRole('textbox', { name: 'At a URL I host' })).toBeInTheDocument();
-    expect(localStorage.getItem('oca-generator:output-open')).toBe('true');
+    expect(localStorage.getItem(OUTPUT_OPEN_KEY)).toBe('true');
   });
 
   it('fixes an issue from the Issues panel', async () => {
@@ -381,7 +382,7 @@ describe('Output pane on a narrow window', () => {
 
   it('stays one of the pane tabs, without a toggle, even when hidden on a wide window', async () => {
     vi.stubGlobal('matchMedia', (query: string) => ({ matches: true, media: query, addEventListener: () => {}, removeEventListener: () => {} }));
-    localStorage.setItem('oca-generator:output-open', 'false');
+    localStorage.setItem(OUTPUT_OPEN_KEY, 'false');
     const user = userEvent.setup();
     const { container } = render(<Workspace />);
     expect(topBar().queryByRole('button', { name: /output/ })).not.toBeInTheDocument();

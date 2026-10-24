@@ -104,7 +104,7 @@ describe('loading the baseline from a file', () => {
 
   it('turns down a file that is not a bundle', async () => {
     open();
-    for (const content of ['not json', JSON.stringify({ format: 'oca-generator-project', version: 1 }), '']) {
+    for (const content of ['not json', JSON.stringify({ format: 'credential-toolkit-project', version: 1 }), '']) {
       expect(await loadBaselineFromFile(bundleFile(content))).toBe(false);
       expect(useStore.getState().fixNotice).toEqual({ kind: 'error', message: INVALID });
     }

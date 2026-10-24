@@ -13,7 +13,7 @@ import type { Project } from '../../../src/core/model.ts';
 import { parseProjectFile } from '../../../src/core/projectFile.ts';
 
 const packageDir = fileURLToPath(new URL('..', import.meta.url));
-const fixture = fileURLToPath(new URL('./fixtures/sample.oca-project.json', import.meta.url));
+const fixture = fileURLToPath(new URL('./fixtures/sample.credential-project.json', import.meta.url));
 
 function runSmoke(file: string): { status: number; output: Record<string, unknown> } {
   try {
@@ -191,7 +191,7 @@ describe('@bryanrmq/oca-generator', () => {
     });
 
     it('prints warnings and still builds when there are no errors', async () => {
-      const path = projectFile('warnings.oca-project.json', (project) => {
+      const path = projectFile('warnings.credential-project.json', (project) => {
         project.hosting = { mode: 'url', url: 'http://example.org/oca-bundle.json' };
       });
 
@@ -206,7 +206,7 @@ describe('@bryanrmq/oca-generator', () => {
     });
 
     it('prints the data URL #integrity the wallets compute when embedding', async () => {
-      const path = projectFile('embedded.oca-project.json', (project) => {
+      const path = projectFile('embedded.credential-project.json', (project) => {
         project.hosting = { mode: 'dataUrl' };
         project.meta['de-CH'] = { name: 'Führerausweis', description: 'Ausgestellt in Zürich' };
       });
@@ -224,7 +224,7 @@ describe('@bryanrmq/oca-generator', () => {
     });
 
     it('lists errors with their location and languages, exits with 1 and writes nothing', () => {
-      const path = projectFile('errors.oca-project.json', (project) => {
+      const path = projectFile('errors.credential-project.json', (project) => {
         const [first] = project.root.children;
         first.key = 'last name';
         first.labels = { 'de-CH': '{{nope}}', 'en-US': '{{nope}}' };
@@ -255,7 +255,7 @@ describe('@bryanrmq/oca-generator', () => {
     });
 
     it('exits with 2 on input that is not a project file it can open', () => {
-      const newer = join(work, 'newer.oca-project.json');
+      const newer = join(work, 'newer.credential-project.json');
       writeFileSync(newer, JSON.stringify({ ...JSON.parse(readFileSync(fixture, 'utf8')), version: 99 }));
 
       const notProject = oca('check', join(packageDir, 'package.json'));
@@ -263,7 +263,7 @@ describe('@bryanrmq/oca-generator', () => {
       expect(notProject.stderr).toContain('is not an OCA Generator project file');
       expect(oca('build', newer).stderr).toContain('was saved by a newer OCA Generator');
       expect(oca('build', newer).status).toBe(2);
-      expect(oca('check', 'missing.oca-project.json').status).toBe(2);
+      expect(oca('check', 'missing.credential-project.json').status).toBe(2);
       expect(oca('build', fixture, '--colour').status).toBe(2);
       expect(oca('check', fixture, '-o', 'bundle.json').status).toBe(2);
       expect(oca('lint', fixture).status).toBe(2);
@@ -273,7 +273,7 @@ describe('@bryanrmq/oca-generator', () => {
     it('prints its help and version', () => {
       const help = oca('--help');
       expect(help.status).toBe(0);
-      expect(help.stdout).toContain('oca build <project.oca-project.json> [-o bundle.json] [--vct vct.json]');
+      expect(help.stdout).toContain('oca build <project.credential-project.json> [-o bundle.json] [--vct vct.json]');
       expect(help.stdout).toContain('Exit codes:');
       const { version } = JSON.parse(readFileSync(join(packageDir, 'package.json'), 'utf8')) as { version: string };
       expect(oca('--version')).toEqual({ status: 0, stdout: `${version}\n`, stderr: '' });

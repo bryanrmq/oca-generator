@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * `oca`: builds and checks the bundle of an OCA Generator project file (`*.oca-project.json`) from the command
+ * `oca`: builds and checks the bundle of an OCA Generator project file (`*.credential-project.json`) from the command
  * line, for scripts and CI. It imports the package by its own name, so it only reaches the public API, and it
  * makes no network request. `oca --help` describes the commands; the exit codes are in `EXIT`.
  */
@@ -21,8 +21,8 @@ import {
 const EXIT = { ok: 0, errors: 1, input: 2 } as const;
 
 const USAGE = `Usage:
-  oca build <project.oca-project.json> [-o bundle.json] [--vct vct.json]
-  oca check <project.oca-project.json>
+  oca build <project.credential-project.json> [-o bundle.json] [--vct vct.json]
+  oca check <project.credential-project.json>
 `;
 
 const HELP = `oca: build and check swiyu OCA bundles from OCA Generator project files.
@@ -82,7 +82,7 @@ async function readProject(file: string): Promise<Project> {
   if (parsed.error === 'newer') {
     throw new InputError(`${file} was saved by a newer OCA Generator; this oca opens project files up to version ${PROJECT_FILE_VERSION}. Update oca.`);
   }
-  throw new InputError(`${file} is not an OCA Generator project file (*.oca-project.json). Save one from the app: menu → Save project file.`);
+  throw new InputError(`${file} is not an OCA Generator project file (*.credential-project.json). Save one from the app: menu → Save project file.`);
 }
 
 async function write(file: string, text: string): Promise<void> {
@@ -214,7 +214,7 @@ async function main(args: string[]): Promise<number> {
   };
   if (command === undefined) return usage('missing command.');
   if (command !== 'build' && command !== 'check') return usage(`unknown command "${command}".`);
-  if (file === undefined) return usage(`missing project file: oca ${command} <project.oca-project.json>.`);
+  if (file === undefined) return usage(`missing project file: oca ${command} <project.credential-project.json>.`);
   if (extra.length > 0) return usage(`unexpected argument "${extra[0]}".`);
   if (command === 'check' && (values.output !== undefined || values.vct !== undefined)) {
     return usage(`${values.output !== undefined ? '--output' : '--vct'} only goes with oca build.`);

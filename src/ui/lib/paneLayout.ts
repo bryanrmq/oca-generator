@@ -4,7 +4,7 @@ export type WorkspacePane = 'structure' | 'inspector' | 'output' | 'issues';
 export type ResizablePane = 'structure' | 'output';
 export type PaneWidths = Record<ResizablePane, number>;
 
-export const PANE_LAYOUT_KEY = 'oca-generator:pane-widths';
+export const PANE_LAYOUT_KEY = 'credential-toolkit:pane-widths';
 export const DEFAULT_PANE_WIDTHS: PaneWidths = { structure: 300, output: 420 };
 export const PANE_LIMITS: Record<ResizablePane, [min: number, max: number]> = { structure: [220, 520], output: [300, 720] };
 /** Room the Edit pane always keeps, and the width of the two resize handles together. */
@@ -50,7 +50,7 @@ export function savePaneWidths(widths: PaneWidths): void {
   saveStored(PANE_LAYOUT_KEY, widths);
 }
 
-export const ISSUES_HEIGHT_KEY = 'oca-generator:issues-height';
+export const ISSUES_HEIGHT_KEY = 'credential-toolkit:issues-height';
 export const DEFAULT_ISSUES_HEIGHT = 200;
 export const ISSUES_HEIGHT_LIMITS: [min: number, max: number] = [96, 640];
 /** Height the panes above the Issues panel always keep. */
@@ -75,7 +75,7 @@ export function saveIssuesHeight(height: number): void {
   saveStored(ISSUES_HEIGHT_KEY, height);
 }
 
-export const ISSUES_OPEN_KEY = 'oca-generator:issues-open';
+export const ISSUES_OPEN_KEY = 'credential-toolkit:issues-open';
 
 /** Whether the Issues panel is open (not collapsed to its header); open unless the user collapsed it. */
 export function loadIssuesOpen(): boolean {
@@ -86,7 +86,7 @@ export function saveIssuesOpen(open: boolean): void {
   saveStored(ISSUES_OPEN_KEY, open);
 }
 
-export const OUTPUT_OPEN_KEY = 'oca-generator:output-open';
+export const OUTPUT_OPEN_KEY = 'credential-toolkit:output-open';
 
 /** Whether a wide window shows the Output pane; shown unless the user hid it. */
 export function loadOutputOpen(): boolean {
@@ -97,7 +97,7 @@ export function saveOutputOpen(open: boolean): void {
   saveStored(OUTPUT_OPEN_KEY, open);
 }
 
-export const EDIT_PREVIEW_OPEN_KEY = 'oca-generator:edit-preview-open';
+export const EDIT_PREVIEW_OPEN_KEY = 'credential-toolkit:edit-preview-open';
 
 /**
  * Whether the wallet preview under the form (an Edit pane narrower than the preview column needs) shows its body,
